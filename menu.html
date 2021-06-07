@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      img {
+        width: 30%;
+      }
+      #btn {
+        margin-bottom: 20px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+  </head>
+  <body>
+    <button onclick="go()" id="btn">Go to cart</button>
+    <div id="parent"></div>
+  </body>
+</html>
+<script>
+  var food = [
+    {
+      image:
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80",
+      price: 100,
+      description: "Mixture of healthy vegetables",
+      time: "20 minutes",
+    },
+    {
+      image:
+        "https://c.ndtvimg.com/2020-01/dd46j918_chilli-chicken_625x300_21_January_20.jpg",
+      price: 500,
+      description: "Made with love",
+      time: "10 minutes",
+    },
+  ];
+  if (localStorage.getItem("dishes") == null) {
+    localStorage.setItem("dishes", JSON.stringify(food));
+  }
+  var data_dishes = JSON.parse(localStorage.getItem("dishes"));
+  var parent = document.getElementById("parent");
+  data_dishes.forEach(function (el) {
+    var div = document.createElement("div");
+
+    var image = document.createElement("img");
+    image.src = `${el.image}`;
+
+    var price = document.createElement("p");
+    price.innerHTML = `Price:${el.price}`;
+
+    var desc = document.createElement("p");
+    desc.innerHTML = `Description:${el.description}`;
+
+    var time = document.createElement("p");
+    time.innerHTML = `Time:${el.time}`;
+
+    var btn = document.createElement("button");
+    btn.innerText = "Add to Cart";
+
+    btn.onclick = function () {
+      cart(el);
+    };
+
+    div.append(image, price, desc, time, btn);
+    parent.append(div);
+  });
+
+  function cart(el) {
+    let mycart;
+    mycart = localStorage.getItem("added");
+    if (mycart == null) {
+      mycart = [];
+    } else {
+      mycart = JSON.parse(localStorage.getItem("added"));
+    }
+    mycart.push(el);
+    localStorage.setItem("added", JSON.stringify(mycart));
+  }
+  function go() {
+    window.location.href = "./cart.html";
+  }
+</script>

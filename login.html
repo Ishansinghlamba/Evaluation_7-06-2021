@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    input {
+      display: block;
+      margin-bottom: 30px;
+    }
+    form {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: auto;
+      margin-top: 10%;
+    }
+    button {
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+    h1 {
+      text-align: center;
+    }
+  </style>
+  <body>
+    <h1>Login</h1>
+    <form>
+      <input type="email" placeholder="EMAIL" id="email" />
+      <input type="password" placeholder="PASSWORD" id="password" />
+      <button onclick="login(event)">Login</button>
+    </form>
+  </body>
+</html>
+<script>
+  function login(e) {
+    e.preventDefault();
+    var kom = JSON.parse(localStorage.getItem("data"));
+    var form = document.querySelector("form");
+    var email_l = form.email.value;
+    var password_l = form.password.value;
+    var kol = true;
+    if ((email_l == "") | (password_l == "")) {
+      alert("Fill all the credentials");
+      kol = false;
+    }
+    if (kol == true) {
+      var ros = true;
+      for (i = 0; i < kom.length; i++) {
+        if (kom[i].email == email_l && kom[i].password == password_l) {
+          window.location.href = "./menu.html";
+          ros = false;
+        }
+      }
+      if (ros == true) {
+        alert(" Check your Credentials");
+      }
+    }
+  }
+</script>

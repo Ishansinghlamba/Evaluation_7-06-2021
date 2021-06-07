@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+  </head>
+  <style>
+    img {
+      width: 30%;
+    }
+    #btn {
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div id="parent"></div>
+    <button id="btn" onclick="noti()">Submit order</button>
+  </body>
+</html>
+<script>
+  var la = JSON.parse(localStorage.getItem("added"));
+  var parent = document.getElementById("parent");
+  la.forEach(function (el) {
+    var div = document.createElement("div");
+
+    var image = document.createElement("img");
+    image.src = `${el.image}`;
+
+    var price = document.createElement("p");
+    price.innerHTML = `Price:${el.price}`;
+
+    var desc = document.createElement("p");
+    desc.innerHTML = `Description:${el.description}`;
+
+    var time = document.createElement("p");
+    time.innerHTML = `Time:${el.time}`;
+
+    div.append(image, price, desc, time);
+    parent.append(div);
+  });
+
+  function noti() {
+    array = [
+      "Your order is accepted",
+      "Your order is being cooked",
+      "Your order is ready",
+      "Order out for delivery",
+      "Order delivered",
+    ];
+    var body = document.querySelector(" body");
+    var p = document.createElement("p");
+    p.innerText = array[0];
+    body.append(p);
+
+    setInterval(trans, 3000);
+    var i = 1;
+    function trans() {
+      p.innerText = array[i];
+      i++;
+      if (i >= 5) {
+        p.innerText = array[4];
+      }
+    }
+  }
+</script>
